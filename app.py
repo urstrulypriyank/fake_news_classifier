@@ -39,11 +39,14 @@ def fake_news_det(news):
     print("prediction is :",prediction)
     return prediction
 
+@app.route('/')
+def home():
+    return "<h1>Deployed sucessfully make POST request at /predict and send a json object as 'news' key </h1>"
 
-@app.route('/', methods=['POST'])
+@app.route('/predict', methods=['POST'])
 def predict():
     if request.method == 'POST':
-        message = request.form['news']
+        message = request.json["news"]
         print(message)
         pred = fake_news_det(message).tolist()
         print(type(pred))
